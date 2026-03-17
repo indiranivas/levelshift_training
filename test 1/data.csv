@@ -1,0 +1,4 @@
+CustomerID,Age,Gender,PurchaseAmount,Country
+201,30,Male,200,USA
+202,28,Female,50000,Canada
+203,27,Male,220,USA

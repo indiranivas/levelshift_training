@@ -1,0 +1,250 @@
+Comprehensive NumPy &amp; Pandas
+Reference Guide
+
+1. Importing Libraries
+import numpy as np
+import pandas as pd
+
+2. NumPy Array Creation
+np.array([1,2,3])
+np.array([[1,2],[3,4]])
+np.zeros(5)
+np.zeros((3,3))
+np.ones((2,4))
+np.full((3,3),7)
+np.empty((2,2))
+np.arange(0,10)
+np.arange(0,10,2)
+np.linspace(0,1,5)
+np.eye(3)
+np.identity(4)
+np.random.rand(3,3)
+np.random.randn(3,3)
+np.random.randint(1,100,10)
+
+3. NumPy Array Properties
+arr.shape
+arr.ndim
+
+arr.size
+arr.dtype
+arr.itemsize
+arr.nbytes
+
+4. NumPy Indexing
+arr[0]
+arr[-1]
+arr[2:5]
+arr[:3]
+arr[::2]
+arr[1,2]
+arr[:,1]
+arr[0:2,1:3]
+
+5. NumPy Boolean Indexing
+arr &gt; 5
+arr[arr &gt; 5]
+arr[(arr &gt; 5) &amp; (arr &lt; 10)]
+arr[(arr == 2) | (arr == 7)]
+
+6. NumPy Reshaping
+arr.reshape(3,3)
+arr.reshape(-1,1)
+arr.flatten()
+arr.ravel()
+np.transpose(arr)
+arr.T
+
+7. NumPy Mathematical Operations
+arr + 10
+arr - 2
+arr * 3
+arr / 2
+arr ** 2
+np.sqrt(arr)
+np.square(arr)
+np.exp(arr)
+np.log(arr)
+np.sin(arr)
+np.cos(arr)
+np.tan(arr)
+
+8. NumPy Aggregations
+np.sum(arr)
+np.mean(arr)
+np.median(arr)
+np.std(arr)
+np.var(arr)
+np.min(arr)
+np.max(arr)
+np.argmin(arr)
+np.argmax(arr)
+
+9. NumPy Axis Operations
+np.sum(arr, axis=0)
+np.sum(arr, axis=1)
+
+np.mean(arr, axis=0)
+np.mean(arr, axis=1)
+
+10. NumPy Sorting
+np.sort(arr)
+np.argsort(arr)
+np.sort(arr, axis=0)
+np.sort(arr, axis=1)
+
+11. NumPy Stacking
+np.vstack((a,b))
+np.hstack((a,b))
+np.dstack((a,b))
+np.column_stack((a,b))
+np.row_stack((a,b))
+
+12. NumPy Splitting
+np.split(arr,3)
+np.array_split(arr,3)
+np.hsplit(arr,2)
+np.vsplit(arr,2)
+
+13. NumPy Broadcasting
+arr + 5
+arr * 10
+arr + np.array([1,2,3])
+
+14. NumPy Random Functions
+np.random.seed(0)
+
+np.random.rand()
+np.random.randn()
+np.random.randint(1,10)
+np.random.choice([1,2,3,4])
+np.random.shuffle(arr)
+
+15. Pandas Series
+pd.Series([10,20,30])
+pd.Series([10,20,30], index=[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;])
+series.values
+series.index
+
+16. Creating DataFrames
+pd.DataFrame(data)
+pd.read_csv(&#39;file.csv&#39;)
+pd.read_excel(&#39;file.xlsx&#39;)
+pd.read_json(&#39;file.json&#39;)
+pd.read_sql(query, connection)
+
+17. Viewing Data
+df.head()
+df.head(10)
+df.tail()
+df.sample(5)
+df.info()
+df.describe()
+df.columns
+df.index
+
+df.shape
+
+18. Selecting Columns
+df[&#39;column&#39;]
+df[[&#39;col1&#39;,&#39;col2&#39;]]
+
+19. Selecting Rows
+df.loc[0]
+df.iloc[0]
+df.loc[0:5]
+df.iloc[0:5]
+df.loc[:, &#39;column&#39;]
+df.iloc[:,0]
+
+20. Filtering Data
+df[df[&#39;age&#39;] &gt; 30]
+df[df[&#39;salary&#39;] &lt; 50000]
+df[(df[&#39;age&#39;]&gt;25) &amp; (df[&#39;salary&#39;]&gt;40000)]
+df[(df[&#39;city&#39;]==&#39;Chennai&#39;)]
+
+21. Adding Columns
+df[&#39;bonus&#39;] = df[&#39;salary&#39;] * 0.1
+df[&#39;tax&#39;] = df[&#39;salary&#39;] * 0.05
+
+22. Renaming Columns
+df.rename(columns={&#39;old&#39;:&#39;new&#39;})
+df.rename(index={0:&#39;row1&#39;})
+
+23. Dropping Data
+df.drop(&#39;column&#39;, axis=1)
+
+df.drop(0, axis=0)
+df.dropna()
+
+24. Handling Missing Values
+df.isnull()
+df.notnull()
+df.fillna(0)
+df.fillna(df.mean())
+df.fillna(method=&#39;ffill&#39;)
+df.fillna(method=&#39;bfill&#39;)
+
+25. Sorting
+df.sort_values(&#39;salary&#39;)
+df.sort_values(&#39;salary&#39;, ascending=False)
+df.sort_index()
+
+26. GroupBy Operations
+df.groupby(&#39;department&#39;).mean()
+df.groupby(&#39;department&#39;).sum()
+df.groupby(&#39;department&#39;)[&#39;salary&#39;].mean()
+df.groupby([&#39;department&#39;,&#39;city&#39;]).sum()
+
+27. Aggregation Functions
+df.agg([&#39;sum&#39;,&#39;mean&#39;,&#39;max&#39;,&#39;min&#39;])
+
+28. Apply Functions
+df[&#39;salary&#39;].apply(lambda x: x*1.1)
+df.apply(np.sum)
+
+29. Map Function
+
+df[&#39;department&#39;].map({&#39;HR&#39;:1,&#39;IT&#39;:2})
+
+30. Value Counts
+df[&#39;department&#39;].value_counts()
+
+31. Unique Values
+df[&#39;department&#39;].unique()
+df[&#39;department&#39;].nunique()
+
+32. Merging DataFrames
+pd.merge(df1, df2, on=&#39;id&#39;)
+pd.merge(df1, df2, how=&#39;left&#39;, on=&#39;id&#39;)
+pd.merge(df1, df2, how=&#39;right&#39;, on=&#39;id&#39;)
+pd.merge(df1, df2, how=&#39;inner&#39;, on=&#39;id&#39;)
+pd.merge(df1, df2, how=&#39;outer&#39;, on=&#39;id&#39;)
+
+33. Concatenation
+pd.concat([df1,df2])
+pd.concat([df1,df2], axis=1)
+
+34. Joining
+df1.join(df2)
+
+35. Pivot Tables
+pd.pivot_table(df, values=&#39;salary&#39;, index=&#39;department&#39;)
+
+36. Crosstab
+pd.crosstab(df[&#39;department&#39;], df[&#39;city&#39;])
+
+37. Encoding Categorical Data
+pd.get_dummies(df[&#39;department&#39;])
+
+pd.get_dummies(df, columns=[&#39;department&#39;])
+
+38. Date Handling
+pd.to_datetime(df[&#39;date&#39;])
+df[&#39;year&#39;] = df[&#39;date&#39;].dt.year
+df[&#39;month&#39;] = df[&#39;date&#39;].dt.month
+
+39. Exporting Data
+df.to_csv(&#39;output.csv&#39;)
+df.to_excel(&#39;output.xlsx&#39;)
+df.to_json(&#39;output.json&#39;)

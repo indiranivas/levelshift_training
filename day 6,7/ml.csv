@@ -1,0 +1,230 @@
+1. Import Libraries
+import numpy as np
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score, GridSearchCV
+
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import OneHotEncoder
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+from sklearn.pipeline import Pipeline
+
+2. Loading Dataset
+df = pd.read_csv(&quot;data.csv&quot;)
+df = pd.read_excel(&quot;data.xlsx&quot;)
+
+X = df.drop(&quot;target&quot;, axis=1)
+y = df[&quot;target&quot;]
+
+3. Train Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+X,
+y,
+test_size=0.2,
+random_state=42
+)
+
+4. Feature Scaling
+scaler = StandardScaler()
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+minmax = MinMaxScaler()
+
+X_train_mm = minmax.fit_transform(X_train)
+X_test_mm = minmax.transform(X_test)
+
+5. Label Encoding
+le = LabelEncoder()
+
+df[&quot;category_encoded&quot;] = le.fit_transform(df[&quot;category&quot;])
+
+6. One Hot Encoding
+df_encoded = pd.get_dummies(df, columns=[&quot;city&quot;])
+
+7. Linear Regression
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+8. Regression Metrics
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_test, y_pred)
+
+9. Logistic Regression
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+10. Classification Metrics
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+
+cm = confusion_matrix(y_test, y_pred)
+
+report = classification_report(y_test, y_pred)
+
+11. KNN
+from sklearn.neighbors import KNeighborsClassifier
+
+model = KNeighborsClassifier(n_neighbors=5)
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+12. Decision Tree
+from sklearn.tree import DecisionTreeClassifier
+
+model = DecisionTreeClassifier()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+13. Random Forest
+from sklearn.ensemble import RandomForestClassifier
+
+model = RandomForestClassifier(
+n_estimators=100,
+random_state=42
+
+)
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+14. Support Vector Machine
+from sklearn.svm import SVC
+
+model = SVC(kernel=&quot;rbf&quot;)
+
+model.fit(X_train_scaled, y_train)
+
+y_pred = model.predict(X_test_scaled)
+
+15. Naive Bayes
+from sklearn.naive_bayes import GaussianNB
+
+model = GaussianNB()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+16. KMeans Clustering
+from sklearn.cluster import KMeans
+
+model = KMeans(n_clusters=3)
+
+model.fit(X)
+
+labels = model.labels_
+
+17. PCA (Dimensionality Reduction)
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=2)
+
+X_reduced = pca.fit_transform(X)
+
+18. Cross Validation
+scores = cross_val_score(
+model,
+X,
+y,
+cv=5
+)
+
+print(scores)
+print(scores.mean())
+
+19. Grid Search Hyperparameter Tuning
+param_grid = {
+&quot;n_estimators&quot;: [50,100,200],
+&quot;max_depth&quot;: [None,5,10]
+}
+
+grid = GridSearchCV(
+RandomForestClassifier(),
+param_grid,
+cv=5
+)
+
+grid.fit(X_train, y_train)
+
+print(grid.best_params_)
+
+20. Pipeline
+pipe = Pipeline([
+(&quot;scaler&quot;, StandardScaler()),
+(&quot;model&quot;, LogisticRegression())
+])
+
+pipe.fit(X_train, y_train)
+
+y_pred = pipe.predict(X_test)
+
+21. Feature Importance
+importances = model.feature_importances_
+
+22. Model Saving
+import joblib
+
+joblib.dump(model, &quot;model.pkl&quot;)
+
+23. Model Loading
+model = joblib.load(&quot;model.pkl&quot;)
+
+24. End to End Example
+import pandas as pd
+
+df = pd.read_csv(&quot;data.csv&quot;)
+
+X = df.drop(&quot;target&quot;, axis=1)
+y = df[&quot;target&quot;]
+
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=42
+)
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+from sklearn.linear_model import LogisticRegression
+
+model = LogisticRegression()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+from sklearn.metrics import accuracy_score
+
+print(accuracy_score(y_test, y_pred))
