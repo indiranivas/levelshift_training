@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LeetCode 7-Day To-Do List</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f4f6f9; }
+    h1 { text-align: center; }
+    .day { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px; margin-bottom: 20px; }
+    h2 { color: #2c3e50; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin: 8px 0; }
+    input[type="checkbox"] { margin-right: 10px; }
+    a { text-decoration: none; color: #2980b9; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>LeetCode 7-Day Prep To-Do List</h1>
+
+  <div id="todo-container"></div>
+
+  <script>
+    const schedule = [
+      {
+        day: "Day 1 - Arrays & Hashing",
+        problems: [
+          { id: "two-sum", name: "Two Sum", url: "https://leetcode.com/problems/two-sum/" },
+          { id: "contains-duplicate", name: "Contains Duplicate", url: "https://leetcode.com/problems/contains-duplicate/" },
+          { id: "valid-anagram", name: "Valid Anagram", url: "https://leetcode.com/problems/valid-anagram/" },
+          { id: "group-anagrams", name: "Group Anagrams", url: "https://leetcode.com/problems/group-anagrams/" },
+          { id: "top-k", name: "Top K Frequent Elements", url: "https://leetcode.com/problems/top-k-frequent-elements/" }
+        ]
+      },
+      {
+        day: "Day 2 - Two Pointers",
+        problems: [
+          { id: "valid-palindrome", name: "Valid Palindrome", url: "https://leetcode.com/problems/valid-palindrome/" },
+          { id: "two-sum-ii", name: "Two Sum II", url: "https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/" },
+          { id: "3sum", name: "3Sum", url: "https://leetcode.com/problems/3sum/" },
+          { id: "container-water", name: "Container With Most Water", url: "https://leetcode.com/problems/container-with-most-water/" },
+          { id: "trapping-water", name: "Trapping Rain Water", url: "https://leetcode.com/problems/trapping-rain-water/" }
+        ]
+      },
+      {
+        day: "Day 3 - Sliding Window",
+        problems: [
+          { id: "best-time", name: "Best Time to Buy and Sell Stock", url: "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/" },
+          { id: "longest-substring", name: "Longest Substring Without Repeating Characters", url: "https://leetcode.com/problems/longest-substring-without-repeating-characters/" },
+          { id: "char-replace", name: "Longest Repeating Character Replacement", url: "https://leetcode.com/problems/longest-repeating-character-replacement/" },
+          { id: "perm-string", name: "Permutation in String", url: "https://leetcode.com/problems/permutation-in-string/" },
+          { id: "min-window", name: "Minimum Window Substring", url: "https://leetcode.com/problems/minimum-window-substring/" }
+        ]
+      },
+      {
+        day: "Day 4 - Stack & Monotonic Stack",
+        problems: [
+          { id: "valid-paren", name: "Valid Parentheses", url: "https://leetcode.com/problems/valid-parentheses/" },
+          { id: "min-stack", name: "Min Stack", url: "https://leetcode.com/problems/min-stack/" },
+          { id: "reverse-polish", name: "Evaluate Reverse Polish Notation", url: "https://leetcode.com/problems/evaluate-reverse-polish-notation/" },
+          { id: "daily-temps", name: "Daily Temperatures", url: "https://leetcode.com/problems/daily-temperatures/" },
+          { id: "largest-rect", name: "Largest Rectangle in Histogram", url: "https://leetcode.com/problems/largest-rectangle-in-histogram/" }
+        ]
+      },
+      {
+        day: "Day 5 - Binary Search & Recursion",
+        problems: [
+          { id: "binary-search", name: "Binary Search", url: "https://leetcode.com/problems/binary-search/" },
+          { id: "rotated-array", name: "Search in Rotated Sorted Array", url: "https://leetcode.com/problems/search-in-rotated-sorted-array/" },
+          { id: "koko", name: "Koko Eating Bananas", url: "https://leetcode.com/problems/koko-eating-bananas/" },
+          { id: "power", name: "Pow(x, n)", url: "https://leetcode.com/problems/powx-n/" },
+          { id: "search-2d", name: "Search a 2D Matrix", url: "https://leetcode.com/problems/search-a-2d-matrix/" }
+        ]
+      },
+      {
+        day: "Day 6 - Trees & DFS",
+        problems: [
+          { id: "max-depth", name: "Maximum Depth of Binary Tree", url: "https://leetcode.com/problems/maximum-depth-of-binary-tree/" },
+          { id: "same-tree", name: "Same Tree", url: "https://leetcode.com/problems/same-tree/" },
+          { id: "invert-tree", name: "Invert Binary Tree", url: "https://leetcode.com/problems/invert-binary-tree/" },
+          { id: "max-path", name: "Binary Tree Maximum Path Sum", url: "https://leetcode.com/problems/binary-tree-maximum-path-sum/" },
+          { id: "diameter", name: "Diameter of Binary Tree", url: "https://leetcode.com/problems/diameter-of-binary-tree/" }
+        ]
+      },
+      {
+        day: "Day 7 - Graph BFS/DFS",
+        problems: [
+          { id: "islands", name: "Number of Islands", url: "https://leetcode.com/problems/number-of-islands/" },
+          { id: "clone-graph", name: "Clone Graph", url: "https://leetcode.com/problems/clone-graph/" },
+          { id: "pacific", name: "Pacific Atlantic Water Flow", url: "https://leetcode.com/problems/pacific-atlantic-water-flow/" },
+          { id: "course-schedule", name: "Course Schedule", url: "https://leetcode.com/problems/course-schedule/" },
+          { id: "redundant", name: "Redundant Connection", url: "https://leetcode.com/problems/redundant-connection/" }
+        ]
+      }
+    ];
+
+    const container = document.getElementById("todo-container");
+    const savedStatus = JSON.parse(localStorage.getItem("leetcode-status") || "{}");
+
+    function saveStatus(id, checked) {
+      savedStatus[id] = checked;
+      localStorage.setItem("leetcode-status", JSON.stringify(savedStatus));
+    }
+
+    schedule.forEach(day => {
+      const div = document.createElement("div");
+      div.className = "day";
+      div.innerHTML = `<h2>${day.day}</h2>`;
+      const ul = document.createElement("ul");
+
+      day.problems.forEach(problem => {
+        const li = document.createElement("li");
+        const isChecked = savedStatus[problem.id] || false;
+
+        li.innerHTML = `
+          <label>
+            <input type="checkbox" id="${problem.id}" ${isChecked ? "checked" : ""} />
+            <a href="${problem.url}" target="_blank">${problem.name}</a>
+          </label>
+        `;
+
+        ul.appendChild(li);
+
+        setTimeout(() => {
+          const checkbox = document.getElementById(problem.id);
+          checkbox.addEventListener("change", () => {
+            saveStatus(problem.id, checkbox.checked);
+          });
+        }, 0);
+      });
+
+      div.appendChild(ul);
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
