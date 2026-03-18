@@ -25,7 +25,7 @@ implementations from the **30-day AIML training program at LevelShift**.
     │   └── notes/
     │
     ├── projects/
-    ├── assignments/
+    ├── assesment/
     └── README.md
 
 ------------------------------------------------------------------------
