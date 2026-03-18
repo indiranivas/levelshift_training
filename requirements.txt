@@ -1,1 +1,1 @@
-numpy pandas matplotlib scikit-learn sns
+numpy pandas matplotlib scikit-learn
