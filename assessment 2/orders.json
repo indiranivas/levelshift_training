@@ -1,0 +1,8 @@
+[ 
+  {"order_id": "O1", "customer": "Alice", "amount": "1200", "status": "delivered"}, 
+  {"order_id": "O2", "customer": "Bob", "amount": "-500", "status": "returned"}, 
+  {"order_id": "O3", "customer": "Charlie", "amount": "abc", "status": "delivered"}, 
+  {"order_id": "O4", "customer": "David", "amount": "2500", "status": "pending"}, 
+  {"order_id": "O5", "customer": "", "amount": "1800", "status": "delivered"}, 
+  {"order_id": "O6", "customer": "Eve", "amount": "", "status": "delivered"} 
+] 

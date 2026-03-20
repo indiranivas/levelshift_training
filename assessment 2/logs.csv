@@ -1,0 +1,7 @@
+timestamp,log_level,response_time
+10:00,INFO,120 
+10:01,ERROR,300 
+10:02,INFO,abc 
+10:03,WARNING,250 
+10:04,ERROR,NaN
+10:05,INFO,100 
